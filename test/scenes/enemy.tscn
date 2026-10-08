@@ -1,0 +1,25 @@
+[gd_scene format=3 uid="uid://bgbai02d6pg6j"]
+
+[ext_resource type="Script" uid="uid://3fl41yjj5g3b" path="res://scenes/enemyAI.gd" id="1_7p1mj"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_mb54s"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_o5qli"]
+albedo_color = Color(1, 0, 0, 1)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_jc2wp"]
+material = SubResource("StandardMaterial3D_o5qli")
+
+[node name="CharacterBody3D" type="CharacterBody3D" unique_id=1760135722]
+script = ExtResource("1_7p1mj")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1509934527]
+shape = SubResource("CapsuleShape3D_mb54s")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=681712796]
+mesh = SubResource("CapsuleMesh_jc2wp")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="." unique_id=373279481]
+debug_enabled = true
+
+[node name="NPCWaitTimer" type="Timer" parent="." unique_id=630960576]

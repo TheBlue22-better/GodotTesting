@@ -1,0 +1,118 @@
+[gd_scene format=3 uid="uid://bdyigy4fvbvtr"]
+
+[ext_resource type="PackedScene" uid="uid://bgbai02d6pg6j" path="res://scenes/enemy.tscn" id="1_0wfyh"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_jc2wp"]
+
+[sub_resource type="NavigationMesh" id="NavigationMesh_jc2wp"]
+vertices = PackedVector3Array(24.899996, 11.799999, -24.999996, 24.899996, 11.549999, 25.250004, 25.149996, 11.799999, -24.999996, -24.850004, 11.799999, -25.499996, -24.850004, 11.799999, 25.250004, -24.350004, 11.799999, -25.249996, 29.649996, 11.799999, -25.249996, -23.600004, 0.2999997, -24.249996, -23.600004, 0.2999997, 24.750004, 23.899996, 0.2999997, 24.750004, 23.899996, 0.2999997, -24.249996)
+polygons = [PackedInt32Array(2, 1, 0), PackedInt32Array(4, 3, 5), PackedInt32Array(2, 0, 6), PackedInt32Array(6, 0, 5), PackedInt32Array(6, 5, 3), PackedInt32Array(10, 9, 7), PackedInt32Array(7, 9, 8)]
+
+[sub_resource type="BoxMesh" id="BoxMesh_mb54s"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_7dm0k"]
+sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+
+[sub_resource type="Sky" id="Sky_ig7tw"]
+sky_material = SubResource("ProceduralSkyMaterial_7dm0k")
+
+[sub_resource type="Environment" id="Environment_0xm2m"]
+background_mode = 2
+sky = SubResource("Sky_ig7tw")
+glow_enabled = true
+
+[node name="Main" type="Node3D" unique_id=1488989431]
+
+[node name="NavMarkers" type="Node3D" parent="." unique_id=520047075]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.6, 0, 0)
+
+[node name="Marker6" type="Marker3D" parent="NavMarkers" unique_id=958063894]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0, 5)
+gizmo_extents = 1.0
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="NavMarkers/Marker6" unique_id=819265708]
+mesh = SubResource("BoxMesh_jc2wp")
+
+[node name="Marker5" type="Marker3D" parent="NavMarkers" unique_id=231843183]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20, 0, 7.5)
+gizmo_extents = 1.0
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="NavMarkers/Marker5" unique_id=1880889805]
+mesh = SubResource("BoxMesh_jc2wp")
+
+[node name="Marker4" type="Marker3D" parent="NavMarkers" unique_id=1350353368]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -27, 0, -4)
+gizmo_extents = 1.0
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="NavMarkers/Marker4" unique_id=1035619053]
+mesh = SubResource("BoxMesh_jc2wp")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="NavMarkers/Marker4/MeshInstance3D" unique_id=338862722]
+mesh = SubResource("BoxMesh_jc2wp")
+
+[node name="Marker3" type="Marker3D" parent="NavMarkers" unique_id=466756734]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17, 0, -17)
+gizmo_extents = 1.0
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="NavMarkers/Marker3" unique_id=1117818506]
+mesh = SubResource("BoxMesh_jc2wp")
+
+[node name="Marker2" type="Marker3D" parent="NavMarkers" unique_id=798651648]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -17)
+gizmo_extents = 1.0
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="NavMarkers/Marker2" unique_id=598943637]
+mesh = SubResource("BoxMesh_jc2wp")
+
+[node name="Marker1" type="Marker3D" parent="NavMarkers" unique_id=200295653]
+gizmo_extents = 1.0
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="NavMarkers/Marker1" unique_id=70053167]
+mesh = SubResource("BoxMesh_jc2wp")
+
+[node name="NavigationRegion3D" type="NavigationRegion3D" parent="." unique_id=1362579084]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.9999999, 0, 0, 0)
+navigation_mesh = SubResource("NavigationMesh_jc2wp")
+
+[node name="Level Geometry" type="Node3D" parent="NavigationRegion3D" unique_id=1455152711]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1.0000001, 0, 0, 0)
+
+[node name="Floor" type="CSGMesh3D" parent="NavigationRegion3D/Level Geometry" unique_id=941285447]
+transform = Transform3D(50, 0, 0, 0, 0.857, 0, 0, 0, 51.399, 0, -0.5, 0)
+use_collision = true
+mesh = SubResource("BoxMesh_mb54s")
+
+[node name="Wall1" type="CSGBox3D" parent="NavigationRegion3D/Level Geometry" unique_id=1282699196]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -24.7, 5.2, 0.14999962)
+use_collision = true
+size = Vector3(1, 12.2, 51.2)
+
+[node name="Wall2" type="CSGBox3D" parent="NavigationRegion3D/Level Geometry" unique_id=1995198471]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25, 5, 0)
+use_collision = true
+size = Vector3(1, 12.400001, 51.5)
+
+[node name="Wall3" type="CSGBox3D" parent="NavigationRegion3D/Level Geometry" unique_id=1905465083]
+transform = Transform3D(7.4505806e-08, 0, -1.0000001, 0, 1, 0, 1.0000001, 0, 7.4505806e-08, 0.20000792, 5.0500026, 25.800001)
+use_collision = true
+size = Vector3(1, 11.900001, 48.9)
+
+[node name="Wall4" type="CSGBox3D" parent="NavigationRegion3D/Level Geometry" unique_id=343292903]
+transform = Transform3D(-1.0530023e-07, 0, 1.0000002, 0, 1, 0, -1.0000002, 0, -1.0530023e-07, 0.10000229, 5.2000055, -25.499989)
+use_collision = true
+size = Vector3(1, 12.400001, 50.9)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=890522999]
+environment = SubResource("Environment_0xm2m")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1412473807]
+transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
+shadow_enabled = true
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=721476218]
+transform = Transform3D(1, 0, 0, 0, 0.76604444, 0.6427876, 0, -0.6427876, 0.76604444, 0, 8.4, 16.3)
+
+[node name="CharacterBody3D" parent="." unique_id=1760135722 node_paths=PackedStringArray("GuardPoints") instance=ExtResource("1_0wfyh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9285, 0)
+GuardPoints = [NodePath("../NavMarkers/Marker6"), NodePath("../NavMarkers/Marker5"), NodePath("../NavMarkers/Marker4"), NodePath("../NavMarkers/Marker3"), NodePath("../NavMarkers/Marker2"), NodePath("../NavMarkers/Marker1")]
