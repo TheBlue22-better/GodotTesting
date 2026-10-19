@@ -1,0 +1,29 @@
+[gd_scene format=3 uid="uid://du2g430hqsqag"]
+
+[ext_resource type="Script" uid="uid://dfota85clerbn" path="res://scenes/player.gd" id="1_3vyb7"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_mb54s"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mb54s"]
+albedo_color = Color(0.32999998, 0.6203334, 1, 1)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_mb54s"]
+material = SubResource("StandardMaterial3D_mb54s")
+
+[node name="Player" type="CharacterBody3D" unique_id=985048034 groups=["Player"]]
+script = ExtResource("1_3vyb7")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1294358682 groups=["Player"]]
+shape = SubResource("CapsuleShape3D_mb54s")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1261791768]
+mesh = SubResource("CapsuleMesh_mb54s")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="." unique_id=115052113]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, -0.25)
+size = Vector3(0.5, 0.1, 0.5)
+
+[node name="Head" type="Node3D" parent="." unique_id=1025531662]
+
+[node name="Camera3D" type="Camera3D" parent="Head" unique_id=1176642139 groups=["Player"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.59999996, -0.4000001)

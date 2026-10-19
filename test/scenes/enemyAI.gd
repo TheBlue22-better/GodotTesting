@@ -22,6 +22,7 @@ var GuardPointNum = 0
 @export var GuardPoints: Array[Marker3D]
 @export var Speed = 3.0
 
+
 var currentState: STATE = STATE.Passive
 	
 func _ready() -> void:
@@ -65,5 +66,12 @@ func nextGuardPosition():
 
 
 func _on_idle_timer_timeout() -> void:
-	print("done")
 	changeState(STATE.Guarding)
+
+
+
+
+
+func _on_area_3d_body_entered(body: Node3D) -> void:
+	if body.is_in_group("Player"):
+		print("found player")

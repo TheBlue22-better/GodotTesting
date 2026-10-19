@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://bgbai02d6pg6j"]
 
 [ext_resource type="Script" uid="uid://3fl41yjj5g3b" path="res://scenes/enemyAI.gd" id="1_7p1mj"]
+[ext_resource type="ArrayMesh" uid="uid://ewgsfvx7xbfw" path="res://models/visionCone.obj" id="2_md0e3"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_mb54s"]
 
@@ -13,8 +14,14 @@ material = SubResource("StandardMaterial3D_o5qli")
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mb54s"]
 albedo_color = Color(0.41346475, 0.54427963, 0.8906827, 1)
 
-[node name="CharacterBody3D" type="CharacterBody3D" unique_id=1760135722]
+[sub_resource type="BoxShape3D" id="BoxShape3D_jc2wp"]
+size = Vector3(4.7000003, 2.6000001, 5.7000003)
+
+[node name="CharacterBody3D" type="CharacterBody3D" unique_id=1760135722 groups=["Enemy"]]
+collision_layer = 2
 script = ExtResource("1_7p1mj")
+GuardStyle = null
+Speed = null
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1509934527]
 shape = SubResource("CapsuleShape3D_mb54s")
@@ -33,4 +40,16 @@ material = SubResource("StandardMaterial3D_mb54s")
 [node name="IdleTimer" type="Timer" parent="." unique_id=1439453655]
 one_shot = true
 
+[node name="VisionCone" type="MeshInstance3D" parent="." unique_id=961588165]
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 0.099999964, 0.3, -1.2999997)
+mesh = ExtResource("2_md0e3")
+
+[node name="Area3D" type="Area3D" parent="." unique_id=1608944508 groups=["Enemy", "Player"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.3)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" unique_id=289275529]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.049999952, 0.60000014, -3.2500002)
+shape = SubResource("BoxShape3D_jc2wp")
+
 [connection signal="timeout" from="IdleTimer" to="." method="_on_idle_timer_timeout"]
+[connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]
