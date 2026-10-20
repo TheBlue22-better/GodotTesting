@@ -73,7 +73,8 @@ func updatePlayerDetection():
 	if playerInDetectionArea:
 		if playerInVisionArea and playerDetection <= 100: playerDetection += 1
 		if playerDetection >= 100:
-			changeState(STATE.Chasing)
+			if currentState != STATE.Chasing:
+				changeState(STATE.Chasing)
 	if playerDetection != 0 and !playerInVisionArea: playerDetection -= 0.1
 	if playerDetection < 0: playerDetection = 0
 	
@@ -95,12 +96,12 @@ func guardState():
 	move_and_slide()
 		
 func chaseState():
+	if navigation_agent_3d.is_target_reached():
+			changeState(STATE.Passive)
 	if playerInDetectionArea:
 		navigation_agent_3d.target_position = player.global_position
 	else:
 		navigation_agent_3d.target_position = playerLastKnownPosition
-		if navigation_agent_3d.is_target_reached():
-			changeState(STATE.Passive)
 		
 	var destination = navigation_agent_3d.get_next_path_position()
 	var local_destination = destination - global_position
@@ -124,8 +125,8 @@ func _on_area_3d_body_entered(body: Node3D) -> void:
 func _on_detection_area_body_exited(body: Node3D) -> void:
 	if body.is_in_group("Player"):
 		playerInDetectionArea = false
-	if currentState == STATE.Chasing:
-		playerLastKnownPosition = body.global_position
+	if currentState == STATE.Chasing and body.is_in_group("Player"):
+		playerLastKnownPosition = Vector3(body.global_position.x, global_position.y, body.global_position.z)
 
 
 func _on_vision_area_body_entered(body: Node3D) -> void:

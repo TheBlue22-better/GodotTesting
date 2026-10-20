@@ -33,6 +33,7 @@ shape = SubResource("CapsuleShape3D_mb54s")
 mesh = SubResource("CapsuleMesh_jc2wp")
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="." unique_id=373279481]
+target_desired_distance = 2.0
 debug_enabled = true
 
 [node name="CSGBox3D" type="CSGBox3D" parent="." unique_id=417340234]
@@ -54,7 +55,7 @@ mesh = ExtResource("2_md0e3")
 shape = SubResource("ConcavePolygonShape3D_md0e3")
 
 [node name="DetectionArea" type="Area3D" parent="." unique_id=1608944508 groups=["Enemy", "Player"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.3)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.6244672)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="DetectionArea" unique_id=289275529]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.049999952, 0.60000014, -8.4)
