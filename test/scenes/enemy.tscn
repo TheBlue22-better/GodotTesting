@@ -14,14 +14,17 @@ material = SubResource("StandardMaterial3D_o5qli")
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mb54s"]
 albedo_color = Color(0.41346475, 0.54427963, 0.8906827, 1)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_jc2wp"]
-size = Vector3(4.7000003, 2.6000001, 5.7000003)
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_md0e3"]
+data = PackedVector3Array(0, 0.39999998, -1, 0.19999999, 0.39999998, -1, -1, 1, 4, -1, 1, 4, 0.19999999, 0.39999998, -1, 1, 1, 4, 1, 1, 4, 1, -1, 4, -1, 1, 4, -1, 1, 4, 1, -1, 4, -1, -1, 4, -1, 1, 4, -1, -1, 4, 0, 0.39999998, -1, 0, 0.39999998, -1, -1, -1, 4, 0, 0, -1, 0.19999999, 0, -1, 0, 0, -1, 1, -1, 4, 1, -1, 4, 0, 0, -1, -1, -1, 4, 0.19999999, 0.39999998, -1, 0.19999999, 0, -1, 1, 1, 4, 1, 1, 4, 0.19999999, 0, -1, 1, -1, 4, 0, 0.39999998, -1, 0, 0, -1, 0.19999999, 0.39999998, -1, 0.19999999, 0.39999998, -1, 0, 0, -1, 0.19999999, 0, -1)
 
-[node name="CharacterBody3D" type="CharacterBody3D" unique_id=1760135722 groups=["Enemy"]]
+[sub_resource type="BoxShape3D" id="BoxShape3D_jc2wp"]
+size = Vector3(12.900001, 2.6000001, 16.6)
+
+[node name="CharacterBody3D" type="CharacterBody3D" unique_id=1760135722 node_paths=PackedStringArray("debug_label_area", "debug_label_detection") groups=["Enemy"]]
 collision_layer = 2
 script = ExtResource("1_7p1mj")
-GuardStyle = null
-Speed = null
+debug_label_area = NodePath("DebugLabelArea")
+debug_label_detection = NodePath("DebugLabelDetection")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1509934527]
 shape = SubResource("CapsuleShape3D_mb54s")
@@ -41,15 +44,30 @@ material = SubResource("StandardMaterial3D_mb54s")
 one_shot = true
 
 [node name="VisionCone" type="MeshInstance3D" parent="." unique_id=961588165]
-transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 0.099999964, 0.3, -1.2999997)
+transform = Transform3D(-2.4569998, 0, 1.0228464e-07, 0, 1, 0, -2.1479774e-07, 0, -1.1699998, 0.099999964, 0.3, -1.2999997)
+transparency = 0.9
 mesh = ExtResource("2_md0e3")
 
-[node name="Area3D" type="Area3D" parent="." unique_id=1608944508 groups=["Enemy", "Player"]]
+[node name="VisionArea" type="Area3D" parent="VisionCone" unique_id=285171192]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="VisionCone/VisionArea" unique_id=2139006273]
+shape = SubResource("ConcavePolygonShape3D_md0e3")
+
+[node name="DetectionArea" type="Area3D" parent="." unique_id=1608944508 groups=["Enemy", "Player"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.3)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" unique_id=289275529]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.049999952, 0.60000014, -3.2500002)
+[node name="CollisionShape3D" type="CollisionShape3D" parent="DetectionArea" unique_id=289275529]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.049999952, 0.60000014, -8.4)
 shape = SubResource("BoxShape3D_jc2wp")
 
+[node name="DebugLabelArea" type="Label3D" parent="." unique_id=1170506540]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 1.3000001, 0)
+
+[node name="DebugLabelDetection" type="Label3D" parent="." unique_id=576475002]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 1.1000001, 0)
+
 [connection signal="timeout" from="IdleTimer" to="." method="_on_idle_timer_timeout"]
-[connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]
+[connection signal="body_entered" from="VisionCone/VisionArea" to="." method="_on_vision_area_body_entered"]
+[connection signal="body_exited" from="VisionCone/VisionArea" to="." method="_on_vision_area_body_exited"]
+[connection signal="body_entered" from="DetectionArea" to="." method="_on_area_3d_body_entered"]
+[connection signal="body_exited" from="DetectionArea" to="." method="_on_detection_area_body_exited"]
