@@ -28,3 +28,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.12322748)
 
 [node name="Camera3D" type="Camera3D" parent="Head" unique_id=1176642139 groups=["Player"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.59999996, -0.4000001)
+
+[node name="DebugDetectionAreaLabel" type="Label3D" parent="." unique_id=1780747401]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.61199445, 0.28534892, -1.0393451)
+font_size = 10

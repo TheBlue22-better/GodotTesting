@@ -2,6 +2,7 @@ extends CharacterBody3D
 
 var input_direction : Vector2
 var speed : float
+var debugLabel: bool = true
 
 @export var look_sensitivity: float = 0.005
 @export var walk_speed = 5.0
@@ -14,6 +15,8 @@ var speed : float
 
 @onready var head = $Head
 @onready var camera = $Head/Camera3D
+@onready var debugAreaLabel: Label3D = $DebugDetectionAreaLabel
+
 
 func _ready():
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
@@ -70,3 +73,6 @@ func _physics_process(delta):
 		velocity.z = horizontal_velocity.z
 	
 	move_and_slide()
+
+func setDebugAreaLabelText(areaString: String):
+	debugAreaLabel.text = areaString
