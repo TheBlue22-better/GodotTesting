@@ -20,7 +20,7 @@ data = PackedVector3Array(0, 0.39999998, -1, 0.19999999, 0.39999998, -1, -1, 1, 
 [sub_resource type="BoxShape3D" id="BoxShape3D_jc2wp"]
 size = Vector3(9.348633, 2.6000001, 13.029004)
 
-[node name="CharacterBody3D" type="CharacterBody3D" unique_id=1760135722 groups=["Enemy"]]
+[node name="Enemy" type="CharacterBody3D" unique_id=1760135722 groups=["Enemy"]]
 collision_layer = 2
 script = ExtResource("1_md0e3")
 
@@ -42,6 +42,9 @@ material = SubResource("StandardMaterial3D_mb54s")
 [node name="IdleTimer" type="Timer" parent="." unique_id=1439453655]
 one_shot = true
 
+[node name="AttackTimer" type="Timer" parent="." unique_id=1145487697]
+one_shot = true
+
 [node name="VisionCone" type="MeshInstance3D" parent="." unique_id=961588165]
 transform = Transform3D(-2.4569998, 0, 1.0228464e-07, 0, 1, 0, -2.1479774e-07, 0, -1.1699998, 0.099999964, 0.3, -1.2999997)
 transparency = 0.9
@@ -61,6 +64,7 @@ shape = SubResource("BoxShape3D_jc2wp")
 
 [connection signal="navigation_finished" from="NavigationAgent3D" to="." method="_on_navigation_agent_3d_navigation_finished"]
 [connection signal="timeout" from="IdleTimer" to="." method="_on_idle_timer_timeout"]
+[connection signal="timeout" from="AttackTimer" to="." method="_on_attack_timer_timeout"]
 [connection signal="body_entered" from="VisionCone/VisionArea" to="." method="_on_vision_area_body_entered"]
 [connection signal="body_exited" from="VisionCone/VisionArea" to="." method="_on_vision_area_body_exited"]
 [connection signal="body_entered" from="DetectionArea" to="." method="_on_detection_area_body_entered"]

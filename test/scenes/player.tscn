@@ -1,6 +1,9 @@
 [gd_scene format=3 uid="uid://du2g430hqsqag"]
 
 [ext_resource type="Script" uid="uid://dfota85clerbn" path="res://scenes/player.gd" id="1_3vyb7"]
+[ext_resource type="Script" uid="uid://1roebfvruoe" path="res://scenes/hud.gd" id="2_g2els"]
+[ext_resource type="Texture2D" uid="uid://cptjb4glw5bsa" path="res://textures/red.png" id="3_dqkch"]
+[ext_resource type="Texture2D" uid="uid://ddnu00saiaxxl" path="res://textures/green.png" id="4_qlg0r"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_mb54s"]
 
@@ -29,6 +32,63 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.12322748)
 [node name="Camera3D" type="Camera3D" parent="Head" unique_id=1176642139 groups=["Player"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.59999996, -0.4000001)
 
-[node name="DebugDetectionAreaLabel" type="Label3D" parent="." unique_id=1780747401]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.61199445, 0.28534892, -1.0393451)
-font_size = 10
+[node name="HUD" type="CanvasLayer" parent="." unique_id=1440113095]
+script = ExtResource("2_g2els")
+
+[node name="ControlMain" type="Control" parent="HUD" unique_id=1337440954]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="HealthBar" type="TextureProgressBar" parent="HUD/ControlMain" unique_id=720670399]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -34.0
+offset_right = 513.0
+grow_vertical = 0
+texture_under = ExtResource("3_dqkch")
+texture_progress = ExtResource("4_qlg0r")
+
+[node name="ControlDebug" type="Control" parent="HUD" unique_id=1920641280]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="PlayerDetection" type="Label" parent="HUD/ControlDebug" unique_id=747005017]
+layout_mode = 0
+offset_left = 1.0
+offset_top = 27.0
+offset_right = 195.0
+offset_bottom = 54.0
+text = "Detection: 0"
+
+[node name="PlayerInDetectionArea" type="Label" parent="HUD/ControlDebug" unique_id=1317673244]
+layout_mode = 0
+offset_left = 1.0
+offset_top = 5.0
+offset_right = 237.0
+offset_bottom = 32.0
+text = "Player in detection area: True"
+
+[node name="DebugString" type="Label" parent="HUD/ControlDebug" unique_id=1856543329]
+layout_mode = 0
+offset_top = 87.0
+offset_right = 179.0
+offset_bottom = 115.0
+
+[node name="susMeter" type="Label" parent="HUD/ControlDebug" unique_id=1813491147]
+layout_mode = 0
+offset_left = 4.0
+offset_top = 51.0
+offset_right = 183.0
+offset_bottom = 79.0

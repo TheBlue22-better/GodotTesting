@@ -2,7 +2,12 @@ extends CharacterBody3D
 
 var input_direction : Vector2
 var speed : float
-var debugLabel: bool = true
+
+enum MOVEMENT_MODE {
+	sneaking,
+	walking,
+	sprinting
+}
 
 @export var look_sensitivity: float = 0.005
 @export var walk_speed = 5.0
@@ -13,9 +18,23 @@ var debugLabel: bool = true
 @export var air_control = 5.0
 @export var air_resistance = 2.0
 
+@export var debugLabel: bool = true
+@export var playerInDetectionArea: bool = false
+@export var playerDetection: float = 0
+@export var susMeter: float = 0
+@export var health: int = 100
+
+
+signal sound_created_sneak
+signal sound_created_walk
+signal sound_created_sprint
+
+var debugString: String = "test"
+var movement: MOVEMENT_MODE
+
 @onready var head = $Head
 @onready var camera = $Head/Camera3D
-@onready var debugAreaLabel: Label3D = $DebugDetectionAreaLabel
+
 
 
 func _ready():
@@ -41,10 +60,13 @@ func _physics_process(delta):
 	# Handle Sprint
 	if Input.is_action_pressed("sprint") and is_on_floor():
 		speed = sprint_speed
+		movement = MOVEMENT_MODE.sprinting
 	elif Input.is_action_pressed("sneak"):
 		speed = sneak_speed
+		movement = MOVEMENT_MODE.sneaking
 	else:
 		speed = walk_speed
+		movement = MOVEMENT_MODE.walking
 	
 	# Handle jump
 	if Input.is_action_just_pressed("jump") and is_on_floor():
@@ -74,5 +96,16 @@ func _physics_process(delta):
 	
 	move_and_slide()
 
-func setDebugAreaLabelText(areaString: String):
-	debugAreaLabel.text = areaString
+func _input(event: InputEvent) -> void:
+	if event.is_action_pressed("down") or event.is_action_pressed("left") or event.is_action_pressed("up") or event.is_action("right"):
+		match movement:
+			MOVEMENT_MODE.walking:
+				sound_created_walk.emit()
+			MOVEMENT_MODE.sprinting:
+				sound_created_sprint.emit()
+			MOVEMENT_MODE.sneaking:
+				sound_created_sneak.emit()
+
+func take_damage(damage: int):
+	debugString = "took " + str(damage) + " damage"
+	health -= damage
