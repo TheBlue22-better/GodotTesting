@@ -20,10 +20,12 @@ script = ExtResource("1_3vyb7")
 shape = SubResource("CapsuleShape3D_mb54s")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1261791768]
+layers = 2
 mesh = SubResource("CapsuleMesh_mb54s")
 
 [node name="CSGBox3D" type="CSGBox3D" parent="." unique_id=115052113]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, -0.25)
+layers = 2
 size = Vector3(0.5, 0.1, 0.5)
 
 [node name="Head" type="Node3D" parent="." unique_id=1025531662]
@@ -82,9 +84,11 @@ text = "Player in detection area: True"
 
 [node name="DebugString" type="Label" parent="HUD/ControlDebug" unique_id=1856543329]
 layout_mode = 0
-offset_top = 87.0
-offset_right = 179.0
-offset_bottom = 115.0
+offset_left = 4.0
+offset_top = 75.0
+offset_right = 183.0
+offset_bottom = 103.0
+text = "test"
 
 [node name="susMeter" type="Label" parent="HUD/ControlDebug" unique_id=1813491147]
 layout_mode = 0
@@ -92,3 +96,28 @@ offset_left = 4.0
 offset_top = 51.0
 offset_right = 183.0
 offset_bottom = 79.0
+text = "test"
+
+[node name="LightLevel" type="Label" parent="HUD/ControlDebug" unique_id=783031550]
+layout_mode = 0
+offset_left = 7.0
+offset_top = 99.0
+offset_right = 47.0
+offset_bottom = 122.0
+text = "Light level: "
+
+[node name="TextureRect" type="TextureRect" parent="HUD/ControlDebug" unique_id=1206520067]
+layout_mode = 0
+offset_left = 1726.0
+offset_top = 915.0
+offset_right = 1911.0
+offset_bottom = 1072.0
+
+[node name="SubViewport" type="SubViewport" parent="." unique_id=181613185]
+
+[node name="LightDetection" type="Node3D" parent="SubViewport" unique_id=80683737]
+
+[node name="Camera3D" type="Camera3D" parent="SubViewport/LightDetection" unique_id=641930592]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 1, 0.016661763)
+cull_mask = 1048573
+fov = 34.774265

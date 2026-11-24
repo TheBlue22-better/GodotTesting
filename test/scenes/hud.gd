@@ -7,6 +7,8 @@ extends CanvasLayer
 @onready var health_bar: TextureProgressBar = $ControlMain/HealthBar
 @onready var debug_string: Label = $ControlDebug/DebugString
 @onready var sus_meter: Label = $ControlDebug/susMeter
+@onready var light_level: Label = $ControlDebug/LightLevel
+@onready var texture_rect: TextureRect = $ControlDebug/TextureRect
 
 func _ready() -> void:
 	
@@ -20,5 +22,7 @@ func _process(delta: float) -> void:
 		player_detection.text = "Detection: " + str(player.playerDetection)
 		debug_string.text = player.debugString
 		sus_meter.text = "sus= " + str(player.susMeter)
+		light_level.text = "Light level: " + str(player.lightLevel)
+		texture_rect.texture = player.lightTexture
 	else: control_debug.hide()
 	health_bar.value = player.health

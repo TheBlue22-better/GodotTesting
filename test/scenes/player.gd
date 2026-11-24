@@ -23,7 +23,8 @@ enum MOVEMENT_MODE {
 @export var playerDetection: float = 0
 @export var susMeter: float = 0
 @export var health: int = 100
-
+@export var lightLevel: float
+@export var lightTexture: Texture
 
 signal sound_created_sneak
 signal sound_created_walk
@@ -34,11 +35,15 @@ var movement: MOVEMENT_MODE
 
 @onready var head = $Head
 @onready var camera = $Head/Camera3D
+@onready var light_detection: Node3D = $SubViewport/LightDetection
+@onready var sub_viewport: SubViewport = $SubViewport
+
 
 
 
 func _ready():
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+	sub_viewport.debug_draw = 2
 
 func _unhandled_input(event):
 	if event is InputEventMouseMotion and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
@@ -95,6 +100,14 @@ func _physics_process(delta):
 		velocity.z = horizontal_velocity.z
 	
 	move_and_slide()
+	
+	#light detection
+	light_detection.global_position = global_position
+	var texture = sub_viewport.get_texture()
+	lightTexture = texture
+	var color = get_average_color(texture)
+	lightLevel = color.get_luminance()
+	
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("down") or event.is_action_pressed("left") or event.is_action_pressed("up") or event.is_action("right"):
@@ -109,3 +122,9 @@ func _input(event: InputEvent) -> void:
 func take_damage(damage: int):
 	debugString = "took " + str(damage) + " damage"
 	health -= damage
+	
+	
+func get_average_color(texture: ViewportTexture) -> Color:
+	var image = texture.get_image()
+	image.resize(1,1,Image.INTERPOLATE_LANCZOS)
+	return image.get_pixel(0,0)
